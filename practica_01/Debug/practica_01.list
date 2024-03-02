@@ -31,23 +31,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  13 .comment      00000043  00000000  00000000  0002004c  2**0
                   CONTENTS, READONLY
- 14 .debug_info   00004933  00000000  00000000  0002008f  2**0
+ 14 .debug_info   00004957  00000000  00000000  0002008f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_abbrev 000011cf  00000000  00000000  000249c2  2**0
+ 15 .debug_abbrev 000011e0  00000000  00000000  000249e6  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_aranges 000004d8  00000000  00000000  00025b98  2**3
+ 16 .debug_aranges 000004e0  00000000  00000000  00025bc8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_rnglists 0000037c  00000000  00000000  00026070  2**0
+ 17 .debug_rnglists 00000381  00000000  00000000  000260a8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_macro  00024ac7  00000000  00000000  000263ec  2**0
+ 18 .debug_macro  00024ac7  00000000  00000000  00026429  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_line   00006f65  00000000  00000000  0004aeb3  2**0
+ 19 .debug_line   00006f60  00000000  00000000  0004aef0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_str    000e0b5c  00000000  00000000  00051e18  2**0
+ 20 .debug_str    000e0b6c  00000000  00000000  00051e50  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_frame  0000113c  00000000  00000000  00132974  2**2
+ 21 .debug_frame  00001160  00000000  00000000  001329bc  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_line_str 0000005f  00000000  00000000  00133ab0  2**0
+ 22 .debug_line_str 0000005f  00000000  00000000  00133b1c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -3735,7 +3735,7 @@ int main(void)
 
   /* Initialize BSP Led for all the LEDs */
   LEDs_Init();
- 8001846:	f000 f84a 	bl	80018de <LEDs_Init>
+ 8001846:	f000 f834 	bl	80018b2 <LEDs_Init>
 
   /* Initialize BSP PB for BUTTON_USER */
   BSP_PB_Init(BUTTON_USER, BUTTON_MODE_GPIO);
@@ -3754,125 +3754,129 @@ int main(void)
     if(ascending_order)
  8001856:	68fb      	ldr	r3, [r7, #12]
  8001858:	2b00      	cmp	r3, #0
- 800185a:	d019      	beq.n	8001890 <main+0x58>
+ 800185a:	d00e      	beq.n	800187a <main+0x42>
     {
       for (int i = 0; i < TOTAL_LEDS; i++) 
  800185c:	2300      	movs	r3, #0
  800185e:	60bb      	str	r3, [r7, #8]
- 8001860:	e012      	b.n	8001888 <main+0x50>
+ 8001860:	e007      	b.n	8001872 <main+0x3a>
       {
-        BSP_LED_Toggle((Led_TypeDef)i);
+        LED_Blink_200ms((Led_TypeDef)i);
  8001862:	68bb      	ldr	r3, [r7, #8]
  8001864:	b2db      	uxtb	r3, r3
  8001866:	4618      	mov	r0, r3
- 8001868:	f7fe fea8 	bl	80005bc <BSP_LED_Toggle>
-        HAL_Delay(200);
- 800186c:	20c8      	movs	r0, #200	; 0xc8
- 800186e:	f7fe fffb 	bl	8000868 <HAL_Delay>
-        BSP_LED_Toggle((Led_TypeDef)i);
- 8001872:	68bb      	ldr	r3, [r7, #8]
- 8001874:	b2db      	uxtb	r3, r3
- 8001876:	4618      	mov	r0, r3
- 8001878:	f7fe fea0 	bl	80005bc <BSP_LED_Toggle>
-        HAL_Delay(200);
- 800187c:	20c8      	movs	r0, #200	; 0xc8
- 800187e:	f7fe fff3 	bl	8000868 <HAL_Delay>
+ 8001868:	f000 f839 	bl	80018de <LED_Blink_200ms>
       for (int i = 0; i < TOTAL_LEDS; i++) 
- 8001882:	68bb      	ldr	r3, [r7, #8]
- 8001884:	3301      	adds	r3, #1
- 8001886:	60bb      	str	r3, [r7, #8]
- 8001888:	68bb      	ldr	r3, [r7, #8]
- 800188a:	2b02      	cmp	r3, #2
- 800188c:	dde9      	ble.n	8001862 <main+0x2a>
- 800188e:	e018      	b.n	80018c2 <main+0x8a>
+ 800186c:	68bb      	ldr	r3, [r7, #8]
+ 800186e:	3301      	adds	r3, #1
+ 8001870:	60bb      	str	r3, [r7, #8]
+ 8001872:	68bb      	ldr	r3, [r7, #8]
+ 8001874:	2b02      	cmp	r3, #2
+ 8001876:	ddf4      	ble.n	8001862 <main+0x2a>
+ 8001878:	e00d      	b.n	8001896 <main+0x5e>
       }
     } 
     else 
     {
       for (int i = TOTAL_LEDS-1; i >= 0; i--)
- 8001890:	2302      	movs	r3, #2
- 8001892:	607b      	str	r3, [r7, #4]
- 8001894:	e012      	b.n	80018bc <main+0x84>
+ 800187a:	2302      	movs	r3, #2
+ 800187c:	607b      	str	r3, [r7, #4]
+ 800187e:	e007      	b.n	8001890 <main+0x58>
       {
-        BSP_LED_Toggle((Led_TypeDef)i);
- 8001896:	687b      	ldr	r3, [r7, #4]
- 8001898:	b2db      	uxtb	r3, r3
- 800189a:	4618      	mov	r0, r3
- 800189c:	f7fe fe8e 	bl	80005bc <BSP_LED_Toggle>
-        HAL_Delay(200);
- 80018a0:	20c8      	movs	r0, #200	; 0xc8
- 80018a2:	f7fe ffe1 	bl	8000868 <HAL_Delay>
-        BSP_LED_Toggle((Led_TypeDef)i);
- 80018a6:	687b      	ldr	r3, [r7, #4]
- 80018a8:	b2db      	uxtb	r3, r3
- 80018aa:	4618      	mov	r0, r3
- 80018ac:	f7fe fe86 	bl	80005bc <BSP_LED_Toggle>
-        HAL_Delay(200);
- 80018b0:	20c8      	movs	r0, #200	; 0xc8
- 80018b2:	f7fe ffd9 	bl	8000868 <HAL_Delay>
+        LED_Blink_200ms((Led_TypeDef)i);
+ 8001880:	687b      	ldr	r3, [r7, #4]
+ 8001882:	b2db      	uxtb	r3, r3
+ 8001884:	4618      	mov	r0, r3
+ 8001886:	f000 f82a 	bl	80018de <LED_Blink_200ms>
       for (int i = TOTAL_LEDS-1; i >= 0; i--)
- 80018b6:	687b      	ldr	r3, [r7, #4]
- 80018b8:	3b01      	subs	r3, #1
- 80018ba:	607b      	str	r3, [r7, #4]
- 80018bc:	687b      	ldr	r3, [r7, #4]
- 80018be:	2b00      	cmp	r3, #0
- 80018c0:	dae9      	bge.n	8001896 <main+0x5e>
+ 800188a:	687b      	ldr	r3, [r7, #4]
+ 800188c:	3b01      	subs	r3, #1
+ 800188e:	607b      	str	r3, [r7, #4]
+ 8001890:	687b      	ldr	r3, [r7, #4]
+ 8001892:	2b00      	cmp	r3, #0
+ 8001894:	daf4      	bge.n	8001880 <main+0x48>
       }
     }
     if(BSP_PB_GetState(BUTTON_USER)) {
- 80018c2:	2000      	movs	r0, #0
- 80018c4:	f7fe feea 	bl	800069c <BSP_PB_GetState>
- 80018c8:	4603      	mov	r3, r0
- 80018ca:	2b00      	cmp	r3, #0
- 80018cc:	d0c3      	beq.n	8001856 <main+0x1e>
+ 8001896:	2000      	movs	r0, #0
+ 8001898:	f7fe ff00 	bl	800069c <BSP_PB_GetState>
+ 800189c:	4603      	mov	r3, r0
+ 800189e:	2b00      	cmp	r3, #0
+ 80018a0:	d0d9      	beq.n	8001856 <main+0x1e>
       ascending_order = !ascending_order;
- 80018ce:	68fb      	ldr	r3, [r7, #12]
- 80018d0:	2b00      	cmp	r3, #0
- 80018d2:	bf0c      	ite	eq
- 80018d4:	2301      	moveq	r3, #1
- 80018d6:	2300      	movne	r3, #0
- 80018d8:	b2db      	uxtb	r3, r3
- 80018da:	60fb      	str	r3, [r7, #12]
+ 80018a2:	68fb      	ldr	r3, [r7, #12]
+ 80018a4:	2b00      	cmp	r3, #0
+ 80018a6:	bf0c      	ite	eq
+ 80018a8:	2301      	moveq	r3, #1
+ 80018aa:	2300      	movne	r3, #0
+ 80018ac:	b2db      	uxtb	r3, r3
+ 80018ae:	60fb      	str	r3, [r7, #12]
     if(ascending_order)
- 80018dc:	e7bb      	b.n	8001856 <main+0x1e>
+ 80018b0:	e7d1      	b.n	8001856 <main+0x1e>
 
-080018de <LEDs_Init>:
-    }
+080018b2 <LEDs_Init>:
 
   }
 }
 
-static void LEDs_Init(void) {
+static void LEDs_Init(void) 
+{
+ 80018b2:	b580      	push	{r7, lr}
+ 80018b4:	b082      	sub	sp, #8
+ 80018b6:	af00      	add	r7, sp, #0
+    for (int i = 0; i < TOTAL_LEDS; i++) 
+ 80018b8:	2300      	movs	r3, #0
+ 80018ba:	607b      	str	r3, [r7, #4]
+ 80018bc:	e007      	b.n	80018ce <LEDs_Init+0x1c>
+    {
+      BSP_LED_Init((Led_TypeDef)i);
+ 80018be:	687b      	ldr	r3, [r7, #4]
+ 80018c0:	b2db      	uxtb	r3, r3
+ 80018c2:	4618      	mov	r0, r3
+ 80018c4:	f7fe fe10 	bl	80004e8 <BSP_LED_Init>
+    for (int i = 0; i < TOTAL_LEDS; i++) 
+ 80018c8:	687b      	ldr	r3, [r7, #4]
+ 80018ca:	3301      	adds	r3, #1
+ 80018cc:	607b      	str	r3, [r7, #4]
+ 80018ce:	687b      	ldr	r3, [r7, #4]
+ 80018d0:	2b02      	cmp	r3, #2
+ 80018d2:	ddf4      	ble.n	80018be <LEDs_Init+0xc>
+    }
+}
+ 80018d4:	bf00      	nop
+ 80018d6:	bf00      	nop
+ 80018d8:	3708      	adds	r7, #8
+ 80018da:	46bd      	mov	sp, r7
+ 80018dc:	bd80      	pop	{r7, pc}
+
+080018de <LED_Blink_200ms>:
+
+static void LED_Blink_200ms(Led_TypeDef led) 
+{
  80018de:	b580      	push	{r7, lr}
  80018e0:	b082      	sub	sp, #8
  80018e2:	af00      	add	r7, sp, #0
-
-    for (int i = 0; i < TOTAL_LEDS; i++) 
- 80018e4:	2300      	movs	r3, #0
- 80018e6:	607b      	str	r3, [r7, #4]
- 80018e8:	e007      	b.n	80018fa <LEDs_Init+0x1c>
-    {
-      BSP_LED_Init((Led_TypeDef)i);
- 80018ea:	687b      	ldr	r3, [r7, #4]
- 80018ec:	b2db      	uxtb	r3, r3
- 80018ee:	4618      	mov	r0, r3
- 80018f0:	f7fe fdfa 	bl	80004e8 <BSP_LED_Init>
-    for (int i = 0; i < TOTAL_LEDS; i++) 
- 80018f4:	687b      	ldr	r3, [r7, #4]
- 80018f6:	3301      	adds	r3, #1
- 80018f8:	607b      	str	r3, [r7, #4]
- 80018fa:	687b      	ldr	r3, [r7, #4]
- 80018fc:	2b02      	cmp	r3, #2
- 80018fe:	ddf4      	ble.n	80018ea <LEDs_Init+0xc>
-    }
-
+ 80018e4:	4603      	mov	r3, r0
+ 80018e6:	71fb      	strb	r3, [r7, #7]
+  BSP_LED_Toggle(led);
+ 80018e8:	79fb      	ldrb	r3, [r7, #7]
+ 80018ea:	4618      	mov	r0, r3
+ 80018ec:	f7fe fe66 	bl	80005bc <BSP_LED_Toggle>
+  HAL_Delay(200);
+ 80018f0:	20c8      	movs	r0, #200	; 0xc8
+ 80018f2:	f7fe ffb9 	bl	8000868 <HAL_Delay>
+  BSP_LED_Toggle(led);
+ 80018f6:	79fb      	ldrb	r3, [r7, #7]
+ 80018f8:	4618      	mov	r0, r3
+ 80018fa:	f7fe fe5f 	bl	80005bc <BSP_LED_Toggle>
+  HAL_Delay(200);
+ 80018fe:	20c8      	movs	r0, #200	; 0xc8
+ 8001900:	f7fe ffb2 	bl	8000868 <HAL_Delay>
 }
- 8001900:	bf00      	nop
- 8001902:	bf00      	nop
- 8001904:	3708      	adds	r7, #8
- 8001906:	46bd      	mov	sp, r7
- 8001908:	bd80      	pop	{r7, pc}
-	...
+ 8001904:	bf00      	nop
+ 8001906:	3708      	adds	r7, #8
+ 8001908:	46bd      	mov	sp, r7
+ 800190a:	bd80      	pop	{r7, pc}
 
 0800190c <SystemClock_Config>:
   *            Flash Latency(WS)              = 5

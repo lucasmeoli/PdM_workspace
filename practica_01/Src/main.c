@@ -40,6 +40,7 @@ UART_HandleTypeDef UartHandle;
 /* Private function prototypes -----------------------------------------------*/
 
 static void LEDs_Init(void);
+static void LED_Blink_200ms(Led_TypeDef);
 static void SystemClock_Config(void);
 static void Error_Handler(void);
 
@@ -78,41 +79,43 @@ int main(void)
   /* Infinite loop */
   while (1) 
   {
-    
     if(ascending_order)
     {
       for (int i = 0; i < TOTAL_LEDS; i++) 
       {
-        BSP_LED_Toggle((Led_TypeDef)i);
-        HAL_Delay(200);
-        BSP_LED_Toggle((Led_TypeDef)i);
-        HAL_Delay(200);
+        LED_Blink_200ms((Led_TypeDef)i);
       }
     } 
     else 
     {
       for (int i = TOTAL_LEDS-1; i >= 0; i--)
       {
-        BSP_LED_Toggle((Led_TypeDef)i);
-        HAL_Delay(200);
-        BSP_LED_Toggle((Led_TypeDef)i);
-        HAL_Delay(200);
+        LED_Blink_200ms((Led_TypeDef)i);
       }
     }
-    if(BSP_PB_GetState(BUTTON_USER)) {
+
+    if(BSP_PB_GetState(BUTTON_USER)) 
+    {
       ascending_order = !ascending_order;
     }
 
   }
 }
 
-static void LEDs_Init(void) {
-
+static void LEDs_Init(void) 
+{
     for (int i = 0; i < TOTAL_LEDS; i++) 
     {
       BSP_LED_Init((Led_TypeDef)i);
     }
+}
 
+static void LED_Blink_200ms(Led_TypeDef led) 
+{
+  BSP_LED_Toggle(led);
+  HAL_Delay(200);
+  BSP_LED_Toggle(led);
+  HAL_Delay(200);
 }
 
 /**
