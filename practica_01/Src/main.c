@@ -39,6 +39,7 @@ UART_HandleTypeDef UartHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 
+static void LEDs_Init(void);
 static void SystemClock_Config(void);
 static void Error_Handler(void);
 
@@ -66,27 +67,53 @@ int main(void)
   /* Configure the system clock to 180 MHz */
   SystemClock_Config();
 
-  /* Initialize BSP Led for LED1, LED2 and LED3 */
-  BSP_LED_Init(LED1);
-  BSP_LED_Init(LED2);
-  BSP_LED_Init(LED3);
+  /* Initialize BSP Led for all the LEDs */
+  LEDs_Init();
 
-  Led_TypeDef actual_led = LED1;
+  /* Initialize BSP PB for BUTTON_USER */
+  BSP_PB_Init(BUTTON_USER, BUTTON_MODE_GPIO);
+
+  int ascending_order = 0;
 
   /* Infinite loop */
-  while (1)
+  while (1) 
   {
-    for (int i = 0; i < TOTAL_LEDS; i++) 
+    
+    if(ascending_order)
     {
-      actual_led = (Led_TypeDef) i;
-      BSP_LED_Toggle(actual_led);
-      HAL_Delay(200);
-      BSP_LED_Toggle(actual_led);
-      HAL_Delay(200);
+      for (int i = 0; i < TOTAL_LEDS; i++) 
+      {
+        BSP_LED_Toggle((Led_TypeDef)i);
+        HAL_Delay(200);
+        BSP_LED_Toggle((Led_TypeDef)i);
+        HAL_Delay(200);
+      }
+    } 
+    else 
+    {
+      for (int i = TOTAL_LEDS-1; i >= 0; i--)
+      {
+        BSP_LED_Toggle((Led_TypeDef)i);
+        HAL_Delay(200);
+        BSP_LED_Toggle((Led_TypeDef)i);
+        HAL_Delay(200);
+      }
     }
+    if(BSP_PB_GetState(BUTTON_USER)) {
+      ascending_order = !ascending_order;
+    }
+
   }
 }
 
+static void LEDs_Init(void) {
+
+    for (int i = 0; i < TOTAL_LEDS; i++) 
+    {
+      BSP_LED_Init((Led_TypeDef)i);
+    }
+
+}
 
 /**
   * @brief  System Clock Configuration
