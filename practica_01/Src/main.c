@@ -31,6 +31,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+#define TOTAL_LEDS  3 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* UART handler declaration */
@@ -70,21 +71,19 @@ int main(void)
   BSP_LED_Init(LED2);
   BSP_LED_Init(LED3);
 
+  Led_TypeDef actual_led = LED1;
+
   /* Infinite loop */
   while (1)
   {
-	  BSP_LED_Toggle(LED1);
-	  HAL_Delay(200);
-	  BSP_LED_Toggle(LED1);
-	  HAL_Delay(200);
-	  BSP_LED_Toggle(LED2);
-	  HAL_Delay(200);
-	  BSP_LED_Toggle(LED2);
-	  HAL_Delay(200);
-	  BSP_LED_Toggle(LED3);
-	  HAL_Delay(200);
-	  BSP_LED_Toggle(LED3);
-	  HAL_Delay(200);
+    for (int i = 0; i < TOTAL_LEDS; i++) 
+    {
+      actual_led = (Led_TypeDef) i;
+      BSP_LED_Toggle(actual_led);
+      HAL_Delay(200);
+      BSP_LED_Toggle(actual_led);
+      HAL_Delay(200);
+    }
   }
 }
 
