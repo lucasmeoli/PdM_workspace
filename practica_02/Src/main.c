@@ -41,7 +41,10 @@ typedef struct{
    bool_t running;
 } delay_t;
 /* Private define ------------------------------------------------------------*/
-#define DURATION_LED2	100
+#define DURATION_LED1	100
+#define DURATION_LED2	200
+#define DURATION_LED3	300
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 
@@ -66,7 +69,7 @@ static void Error_Handler(void);
   */
 int main(void)
 {
-	delay_t timerLED2;
+	delay_t timerLED1,timerLED2,timerLED3;
   /* STM32F4xx HAL library initialization:
        - Configure the Flash prefetch
        - Systick timer is configured by default as source of time base, but user 
@@ -83,15 +86,28 @@ int main(void)
   SystemClock_Config();
 
   /* Initialize BSP Led for LED2 */
+  BSP_LED_Init(LED1);
+  delayInit(&timerLED1, DURATION_LED1);
   BSP_LED_Init(LED2);
   delayInit(&timerLED2, DURATION_LED2);
+  BSP_LED_Init(LED3);
+  delayInit(&timerLED3, DURATION_LED3);
 
   /* Infinite loop */
   while (1)
   {
+	  if(delayRead(&timerLED1))
+	  {
+		  BSP_LED_Toggle(LED1);
+	  }
+
 	  if(delayRead(&timerLED2))
 	  {
 		  BSP_LED_Toggle(LED2);
+	  }
+	  if(delayRead(&timerLED3))
+	  {
+		  BSP_LED_Toggle(LED3);
 	  }
   }
 }
@@ -112,9 +128,10 @@ void delayInit(delay_t * delay, tick_t duration)
 bool_t delayRead(delay_t * delay)
 {
 	uint32_t elapsedTime = 0;
+	bool_t returnValue = false;
 
 	if (delay == NULL)
-		return false;
+		return returnValue;
 
 	if (delay->running == false)
 	{
@@ -128,11 +145,11 @@ bool_t delayRead(delay_t * delay)
 		if (elapsedTime >= delay->duration)
 		{
 			delay->running = false;
-			return true;
+			returnValue = true;
 		}
 	}
 
-	return false;
+	return returnValue;
 }
 
 void delayWrite(delay_t * delay, tick_t duration)
