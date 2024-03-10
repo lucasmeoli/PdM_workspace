@@ -40,14 +40,17 @@ typedef struct{
    tick_t duration;
    bool_t running;
 } delay_t;
+
 /* Private define ------------------------------------------------------------*/
-#define DURATION_LED1	100
-#define DURATION_LED2	200
-#define DURATION_LED3	300
+#define PERIOD_1S	    	1000
+#define PERIOD_200MS	 	200
+#define PERIOD_100MS	  	100
+#define TOTAL_TOGGLES		10
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-
+tick_t time_pattern[] = {PERIOD_1S, PERIOD_200MS, PERIOD_100MS};
+uint32_t size_time_pattern = sizeof(time_pattern)/sizeof(tick_t);
 
 /* UART handler declaration */
 UART_HandleTypeDef UartHandle;
@@ -69,7 +72,10 @@ static void Error_Handler(void);
   */
 int main(void)
 {
-	delay_t timerLED1,timerLED2,timerLED3;
+  delay_t timer_LED1;
+  uint32_t toggle_counter = 0;
+  uint8_t index_pattern = 0;
+
   /* STM32F4xx HAL library initialization:
        - Configure the Flash prefetch
        - Systick timer is configured by default as source of time base, but user 
@@ -85,37 +91,61 @@ int main(void)
   /* Configure the system clock to 180 MHz */
   SystemClock_Config();
 
-  /* Initialize BSP Led for LED2 */
+  /* Initialize BSP Led for LED1 */
   BSP_LED_Init(LED1);
-  delayInit(&timerLED1, DURATION_LED1);
-  BSP_LED_Init(LED2);
-  delayInit(&timerLED2, DURATION_LED2);
-  BSP_LED_Init(LED3);
-  delayInit(&timerLED3, DURATION_LED3);
+
+  /* Initialize LED timer in 1 second */
+  delayInit(&timer_LED1, PERIOD_1S);
 
   /* Infinite loop */
   while (1)
   {
-	  if(delayRead(&timerLED1))
-	  {
-		  BSP_LED_Toggle(LED1);
-	  }
-
-	  if(delayRead(&timerLED2))
-	  {
-		  BSP_LED_Toggle(LED2);
-	  }
-	  if(delayRead(&timerLED3))
-	  {
-		  BSP_LED_Toggle(LED3);
-	  }
+  	if (delayRead(&timer_LED1))
+  	{
+		BSP_LED_Toggle(LED1);
+		if ((++toggle_counter) == TOTAL_TOGGLES)
+		{
+			toggle_counter = 0;
+			if (++index_pattern == size_time_pattern)
+			{
+			  index_pattern = 0;
+			}
+			delayWrite(&timer_LED1,time_pattern[index_pattern]);
+		}
+  	}
   }
+
+  /*
+    Exercise 2 done in class with Marco
+	while (1)
+	{
+		if(delayRead(&timerLED1))
+		{
+		  BSP_LED_Toggle(LED1);
+		}
+
+		if(delayRead(&timerLED2))
+		{
+		  BSP_LED_Toggle(LED2);
+		}
+		if(delayRead(&timerLED3))
+		{
+		  BSP_LED_Toggle(LED3);
+		}
+	}
+  */
 }
 
 
+/**
+  * @brief  Initializes the delay structure with the given duration.
+  * @param  delay: Pointer to the structure representing the delay.
+  * 		time_ms: The duration of the delay in milliseconds. It must be greater than 0.
+  * @retval None
+  */
 void delayInit(delay_t * delay, tick_t duration)
 {
-	if (delay == NULL)
+	if ((delay == NULL) || (duration == 0))
 		return;
 
 	delay->duration = duration;
@@ -124,7 +154,13 @@ void delayInit(delay_t * delay, tick_t duration)
 }
 
 
-
+/**
+  * @brief  Checks the state of the 'running' flag. If true, calculates
+  * whether the delay time has elapsed or not. When the delay time elapses,
+  * sets the 'running' flag to false.
+  * @param  delay: Pointer to the structure representing the delay.
+  * @retval Boolean value indicating whether the delay time has elapsed.
+  */
 bool_t delayRead(delay_t * delay)
 {
 	uint32_t elapsedTime = 0;
@@ -152,18 +188,23 @@ bool_t delayRead(delay_t * delay)
 	return returnValue;
 }
 
+
+/**
+  * @brief  Allows changing the duration time of an existing delay only if the
+  * delay it is not running.
+  * @param  delay: Pointer to the structure representing the delay.
+  *  		duration: The new duration time for the delay in milliseconds. Must be greater than 0.
+  * @retval None
+  */
 void delayWrite(delay_t * delay, tick_t duration)
 {
-	if (delay == NULL)
+	if ((delay == NULL) || (duration == 0))
 		return;
 
 	if (delay->running == false) {
 		delay->duration = duration;
 	}
-	// TODO: change to bool return to indicate if it was possible to modify the delay
 }
-
-
 
 
 /**

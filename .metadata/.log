@@ -2767,3 +2767,18 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64
 
 !ENTRY org.eclipse.cdt.core 1 0 2024-03-07 21:19:05.575
 !MESSAGE Indexed 'practica_02' (99 sources, 208 headers) in 6.05 sec: 29,794 declarations; 90,668 references; 6 unresolved inclusions; 1,836 syntax errors; 1,822 unresolved names (1.5%)
+!SESSION 2024-03-10 17:07:45.052 -----------------------------------------------
+eclipse.buildId=Version 1.14.0
+java.version=17.0.8.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-03-10 17:07:50.212
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-03-10 17:07:50.213
+!MESSAGE Log4j2 initialized with config file /home/lpmeoli/Especializacion/PdM_workspace/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-03-10 17:07:54.281
+!MESSAGE Started RMI Server, listening on port 41337

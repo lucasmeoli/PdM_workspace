@@ -1,14 +1,7 @@
-22:01:41 **** Incremental Build of configuration Debug for project practica_02 ****
+17:40:38 **** Incremental Build of configuration Debug for project practica_02 ****
 make -j16 all 
 arm-none-eabi-size  practica_02.elf 
    text	   data	    bss	    dec	    hex	filename
-   6480	     32	   1568	   8080	   1f90	practica_02.elf
-Finished building: default.size.stdout
- 
-22:01:44 **** Incremental Build of configuration Debug for project practica_02 ****
-make -j16 all 
-arm-none-eabi-size  practica_02.elf 
-   text	   data	    bss	    dec	    hex	filename
-   6480	     32	   1568	   8080	   1f90	practica_02.elf
+   6532	     48	   1568	   8148	   1fd4	practica_02.elf
 Finished building: default.size.stdout
  
