@@ -3995,3 +3995,9 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-03-22 17:39:10.058
 !MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-03-22 17:50:32.792
+!MESSAGE Indexed 'practica_04_2' (100 sources, 210 headers) in 5.47 sec: 29,837 declarations; 90,774 references; 9 unresolved inclusions; 1,836 syntax errors; 1,835 unresolved names (1.5%)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-03-22 18:07:49.973
+!MESSAGE Won't launch debug session since we failed to locate the binary.
