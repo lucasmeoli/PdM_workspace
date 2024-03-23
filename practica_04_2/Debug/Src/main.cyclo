@@ -1,5 +1,5 @@
-../Src/main.c:61:5:main	1
-../Src/main.c:92:6:buttonPressed	1
-../Src/main.c:96:6:buttonReleased	1
-../Src/main.c:122:13:SystemClock_Config	4
-../Src/main.c:174:13:Error_Handler	1
+../Src/main.c:67:5:main	4
+../Src/main.c:120:6:buttonPressed	1
+../Src/main.c:124:6:buttonReleased	1
+../Src/main.c:150:13:SystemClock_Config	4
+../Src/main.c:202:13:Error_Handler	1

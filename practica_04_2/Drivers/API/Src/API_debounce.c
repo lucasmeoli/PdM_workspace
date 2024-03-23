@@ -41,6 +41,7 @@ void debounceFSM_init(uint32_t time) {
 	debounce_time = time;
 	rising_edge = false;
 
+	BSP_PB_Init(BUTTON_USER, BUTTON_MODE_GPIO);
 	delayInit(&debounce_timer, debounce_time);
 }
 

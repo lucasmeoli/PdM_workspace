@@ -36,7 +36,16 @@ void delayWrite(delay_t *delay, tick_t duration) {
 	if ((delay == NULL) || (duration == 0))
 		return;
 
-	if (delay->running == false) {
-		delay->duration = duration;
-	}
+	delay->duration = duration;
+	delay->running = false;
+	delay->startTime = 0;
+
+//	if (delay->running == false) {
+//		delay->duration = duration;
+//		return true;
+//	}
+//
+//	return false;
+
+	// TODO: Make a delayWrite that permit the current timer to stop
 }

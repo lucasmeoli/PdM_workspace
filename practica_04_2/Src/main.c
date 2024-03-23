@@ -38,10 +38,16 @@
 
 
 /* Private define ------------------------------------------------------------*/
-#define DEBOUNCE_TIME	40
+#define DEBOUNCE_TIME		40
+#define TIMER_BLINK_100MS	100
+#define TIMER_BLINK_500MS	500
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+
+uint32_t blink_timers [] = {TIMER_BLINK_100MS, TIMER_BLINK_500MS};
+uint32_t size_blink_timers = sizeof(blink_timers)/sizeof(uint32_t);
+
 /* Private function prototypes -----------------------------------------------*/
 void debounceFSM_init(uint32_t debounceTime);
 void debounceFSM_update();
@@ -59,8 +65,8 @@ static void Error_Handler(void);
  * @retval None
  */
 int main(void) {
-
-	delay_t timer_led;
+	delay_t timer_LED1;
+	uint8_t index_blink_timers = 0;
 
 	/* STM32F4xx HAL library initialization:
        - Configure the Flash prefetch
@@ -79,17 +85,28 @@ int main(void) {
 
 	/* Initialize BSP Led for LED1 */
 	BSP_LED_Init(LED1);
-	BSP_PB_Init(BUTTON_USER, BUTTON_MODE_GPIO);
-	delayInit(&timer_led, 100);
+	BSP_LED_Init(LED2);
+	BSP_LED_Init(LED3);
+
+	delayInit(&timer_LED1, blink_timers[index_blink_timers]);
 	/* Initialize FSM debounce */
 	debounceFSM_init(DEBOUNCE_TIME);
 
 	/* Infinite loop */
 	while (1) {
 		debounceFSM_update();
-		if (readKey()) {
 
+		if (readKey()) {
+			if (++index_blink_timers == size_blink_timers) {
+				index_blink_timers = 0;
+			}
+
+			delayWrite(&timer_LED1,blink_timers[index_blink_timers]);
 		}
+
+	  	if (delayRead(&timer_LED1)) {
+	  		BSP_LED_Toggle(LED1);
+	  	}
 	}
 }
 
