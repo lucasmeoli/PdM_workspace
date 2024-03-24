@@ -1,9 +1,6 @@
 /**
  ******************************************************************************
- * @file    UART/UART_Printf/Src/main.c
- * @author  MCD Application Team
- * @brief   This example shows how to retarget the C library printf function
- *          to the UART.
+ * @author  Lucas Pablo Meoli
  ******************************************************************************
  * @attention
  *
@@ -25,18 +22,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-/** @addtogroup STM32F4xx_HAL_Examples
- * @{
- */
-
-/** @addtogroup UART_Printf
- * @{
- */
-
 /* Private typedef -----------------------------------------------------------*/
-
-
-
 /* Private define ------------------------------------------------------------*/
 #define DEBOUNCE_TIME		40
 #define TIMER_BLINK_100MS	100
@@ -44,16 +30,10 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-
 uint32_t blink_timers [] = {TIMER_BLINK_100MS, TIMER_BLINK_500MS};
 uint32_t size_blink_timers = sizeof(blink_timers)/sizeof(uint32_t);
 
 /* Private function prototypes -----------------------------------------------*/
-void debounceFSM_init(uint32_t debounceTime);
-void debounceFSM_update();
-void buttonPressed();
-void buttonReleased();
-
 static void SystemClock_Config(void);
 static void Error_Handler(void);
 
@@ -85,46 +65,30 @@ int main(void) {
 
 	/* Initialize BSP Led for LED1 */
 	BSP_LED_Init(LED1);
-	BSP_LED_Init(LED2);
-	BSP_LED_Init(LED3);
 
-	delayInit(&timer_LED1, blink_timers[index_blink_timers]);
+	/* Initialize blink timer for LED1 */
+	delay_init(&timer_LED1, blink_timers[index_blink_timers]);
+
 	/* Initialize FSM debounce */
-	debounceFSM_init(DEBOUNCE_TIME);
+	debounce_FSM_init(DEBOUNCE_TIME);
 
 	/* Infinite loop */
 	while (1) {
-		debounceFSM_update();
+		debounce_FSM_update();
 
-		if (readKey()) {
+		if (read_key()) {
 			if (++index_blink_timers == size_blink_timers) {
 				index_blink_timers = 0;
 			}
 
-			delayWrite(&timer_LED1,blink_timers[index_blink_timers]);
+			delay_write(&timer_LED1,blink_timers[index_blink_timers]);
 		}
 
-	  	if (delayRead(&timer_LED1)) {
+	  	if (delay_read(&timer_LED1)) {
 	  		BSP_LED_Toggle(LED1);
 	  	}
 	}
 }
-
-/*
- * Implementar un programa que cambie la frecuencia de parpadeo del LED entre 100 ms y 500 ms cada vez
- * que se presione la tecla.  El programa debe usar las funciones anti-rebote del módulo API_debounce
- * y los retardos no bloqueantes del módulo API_delay y la función readKey.
- *
- * */
-
-void buttonPressed() {
-	BSP_LED_On(LED1);
-}
-
-void buttonReleased() {
-	BSP_LED_Off(LED1);
-}
-
 
 /**
  * @brief  System Clock Configuration

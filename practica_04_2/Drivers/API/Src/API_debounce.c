@@ -34,18 +34,19 @@ static bool_t rising_edge;
 
 
 /* Private function prototypes -----------------------------------------------*/
+static void FSM_error_handler(void);
 
-/* Functions ---------------------------------------------------------*/
-void debounceFSM_init(uint32_t time) {
+/* Public functions ---------------------------------------------------------*/
+void debounce_FSM_init(uint32_t time) {
 	current_state = BUTTON_UP;
 	debounce_time = time;
 	rising_edge = false;
 
 	BSP_PB_Init(BUTTON_USER, BUTTON_MODE_GPIO);
-	delayInit(&debounce_timer, debounce_time);
+	delay_init(&debounce_timer, debounce_time);
 }
 
-void debounceFSM_update() {
+void debounce_FSM_update() {
 	switch (current_state) {
 		case BUTTON_UP:
 			if(BSP_PB_GetState(BUTTON_USER)) {
@@ -54,7 +55,7 @@ void debounceFSM_update() {
 			break;
 
 		case BUTTON_FALLING:
-			if (delayRead(&debounce_timer)) {
+			if (delay_read(&debounce_timer)) {
 				if(BSP_PB_GetState(BUTTON_USER)) {
 					current_state = BUTTON_DOWN;
 					rising_edge = true;
@@ -71,7 +72,7 @@ void debounceFSM_update() {
 			break;
 
 		case BUTTON_RAISING:
-			if (delayRead(&debounce_timer)) {
+			if (delay_read(&debounce_timer)) {
 				if(!BSP_PB_GetState(BUTTON_USER)) {
 					current_state = BUTTON_UP;
 				} else {
@@ -81,11 +82,12 @@ void debounceFSM_update() {
 			break;
 
 		default:
+			FSM_error_handler();
 			break;
 	}
 }
 
-bool_t readKey() {
+bool_t read_key() {
 	bool_t return_value = false;
 
 	if (rising_edge) {
@@ -94,5 +96,21 @@ bool_t readKey() {
 	}
 
 	return return_value;
+}
+
+
+/**
+ * @brief  This function is executed in case of error occurrence.
+ *
+ * @param  None
+ * @retval None
+ */
+static void FSM_error_handler(void) {
+	/* Turn LED2 on */
+	BSP_LED_Init(LED2);
+	BSP_LED_On(LED2);
+	while (1)
+	{
+	}
 }
 
