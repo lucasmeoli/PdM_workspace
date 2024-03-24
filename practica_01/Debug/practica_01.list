@@ -3750,7 +3750,6 @@ int main(void)
   /* Infinite loop */
   while (1) 
   {
-    
     if(ascending_order)
  8001856:	68fb      	ldr	r3, [r7, #12]
  8001858:	2b00      	cmp	r3, #0
@@ -3797,12 +3796,14 @@ int main(void)
  8001894:	daf4      	bge.n	8001880 <main+0x48>
       }
     }
-    if(BSP_PB_GetState(BUTTON_USER)) {
+
+    if(BSP_PB_GetState(BUTTON_USER)) 
  8001896:	2000      	movs	r0, #0
  8001898:	f7fe ff00 	bl	800069c <BSP_PB_GetState>
  800189c:	4603      	mov	r3, r0
  800189e:	2b00      	cmp	r3, #0
  80018a0:	d0d9      	beq.n	8001856 <main+0x1e>
+    {
       ascending_order = !ascending_order;
  80018a2:	68fb      	ldr	r3, [r7, #12]
  80018a4:	2b00      	cmp	r3, #0

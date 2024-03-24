@@ -1,10 +1,17 @@
-19:22:24 **** Incremental Build of configuration Debug for project practica_02 ****
+20:57:21 **** Build of configuration Debug for project practica_02 ****
 make -j16 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/lpmeoli/Especializacion/PdM_workspace/practica_02/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/lpmeoli/Especializacion/PdM_workspace/practica_02/Drivers/CMSIS/Include" -I"/home/lpmeoli/Especializacion/PdM_workspace/practica_02/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/lpmeoli/Especializacion/PdM_workspace/practica_02/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/lpmeoli/Especializacion/PdM_workspace/practica_02/Drivers/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "practica_02.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/lpmeoli/Especializacion/PdM_workspace/practica_02/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="practica_02.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: practica_02.elf
+ 
 arm-none-eabi-size  practica_02.elf 
+arm-none-eabi-objdump -h -S practica_02.elf  > "practica_02.list"
    text	   data	    bss	    dec	    hex	filename
    6532	     48	   1568	   8148	   1fd4	practica_02.elf
 Finished building: default.size.stdout
  
+Finished building: practica_02.list
+ 
 
-19:22:24 Build Finished. 0 errors, 0 warnings. (took 170ms)
+20:57:22 Build Finished. 0 errors, 0 warnings. (took 520ms)
 
