@@ -47,7 +47,6 @@ typedef enum{
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-
 static debounceState_t current_state;
 static uint32_t debounce_time;
 static delay_t debounce_timer;
@@ -99,15 +98,28 @@ int main(void) {
 	}
 }
 
-/*FSM functions*/
+/* FSM functions ---------------------------------------------------------*/
 
+/**
+ * @brief  Initialize the Finite State Machine (FSM) for debounce mechanism.
+ * It also starts the non-blocking delay for debounce with the specified time.
+ *
+ * @param  time: The debounce time for stabilizing button inputs
+ * @retval None
+ */
 void debounceFSM_init(uint32_t time) {
 	current_state = BUTTON_UP;
 	debounce_time = time;
-
 	delayInit(&debounce_timer, debounce_time);
 }
 
+/**
+ * @brief  FSM logic. It updates the debounce FSM state depending on the current state value,
+ * the button state, and the debounce timer.
+ *
+ * @param  None
+ * @retval None
+ */
 void debounceFSM_update() {
 	switch (current_state) {
 		case BUTTON_UP:
@@ -145,15 +157,27 @@ void debounceFSM_update() {
 			break;
 
 		default:
+			Error_Handler();
 			break;
 	}
 }
 
-
+/**
+ * @brief  Handle the button press event by turning on LED 1
+ *
+ * @param  None
+ * @retval None
+ */
 void buttonPressed() {
 	BSP_LED_On(LED1);
 }
 
+/**
+ * @brief  Handle the button release event by turning on LED 1
+ *
+ * @param  None
+ * @retval None
+ */
 void buttonReleased() {
 	BSP_LED_Off(LED1);
 }
