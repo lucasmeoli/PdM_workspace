@@ -107,8 +107,11 @@ int main(void)
   /* Infinite loop */
   while (1)
   {
+
 	  BSP_LED_Toggle(LED3);
+	  printf("\n\r Cambio de mensaje\n\r");
 	  HAL_Delay(100);
+	  printf("\n\r UART TESTING\n\r");
   }
 }
 

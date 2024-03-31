@@ -17,6 +17,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="/home/lpmeoli/Temp/PdM_workspace"/>
 			<item value="/home/lpmeoli/Temp/PdM_cese_workspace/practica3"/>
 			<item value="/home/lpmeoli/Temp/roberto_castro"/>
 			<item value="/home/lpmeoli/Temp/roberto_castro/PdMicrocontroladores/practica2"/>
