@@ -43,11 +43,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  19 .debug_line   0000c5cc  00000000  00000000  00050c84  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_str    000e15b0  00000000  00000000  0005d250  2**0
+ 20 .debug_str    000e15b3  00000000  00000000  0005d250  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_frame  00001c74  00000000  00000000  0013e800  2**2
+ 21 .debug_frame  00001c74  00000000  00000000  0013e804  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_line_str 0000005f  00000000  00000000  00140474  2**0
+ 22 .debug_line_str 0000005f  00000000  00000000  00140478  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -858,10 +858,10 @@ void uart_send_string(uint8_t * pstring) {
  80007bc:	781b      	ldrb	r3, [r3, #0]
  80007be:	2b00      	cmp	r3, #0
  80007c0:	d1f6      	bne.n	80007b0 <uart_send_string+0x14>
-	HAL_UART_Transmit(&UartHandle, pstring, size, 1000);
+	HAL_UART_Transmit(&UartHandle, pstring, size, HAL_MAX_DELAY);
  80007c2:	68fb      	ldr	r3, [r7, #12]
  80007c4:	b29a      	uxth	r2, r3
- 80007c6:	f44f 737a 	mov.w	r3, #1000	; 0x3e8
+ 80007c6:	f04f 33ff 	mov.w	r3, #4294967295	; 0xffffffff
  80007ca:	6879      	ldr	r1, [r7, #4]
  80007cc:	4803      	ldr	r0, [pc, #12]	; (80007dc <uart_send_string+0x40>)
  80007ce:	f001 fa60 	bl	8001c92 <HAL_UART_Transmit>

@@ -52,17 +52,17 @@ void uart_send_string(uint8_t * pstring) {
 	}
 
 	for(; pstring[size] != '\0'; size++ );
-	HAL_UART_Transmit(&UartHandle, pstring, size, 1000);
+	HAL_UART_Transmit(&UartHandle, pstring, size, HAL_MAX_DELAY);
 }
 
 
-void uartSendStringSize(uint8_t * pstring, uint16_t size) {
+void uart_send_string_size(uint8_t * pstring, uint16_t size) {
 
 	if ((pstring == NULL) || (size == 0)) {
 		return;
 	}
 
-	HAL_UART_Transmit(&UartHandle, pstring, size, 1000);
+	HAL_UART_Transmit(&UartHandle, pstring, size, HAL_MAX_DELAY);
 }
 
 
@@ -72,5 +72,5 @@ void uart_receive_string_size(uint8_t * pstring, uint16_t size) {
 		return;
 	}
 
-	HAL_UART_Receive(&UartHandle, pstring, size, 10000);
+	HAL_UART_Receive(&UartHandle, pstring, size, HAL_MAX_DELAY);
 }
