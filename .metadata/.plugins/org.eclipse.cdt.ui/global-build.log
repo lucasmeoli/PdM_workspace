@@ -1,14 +1,28 @@
-13:02:09 **** Incremental Build of configuration Debug for project practica_04_2 ****
+11:09:17 **** Incremental Build of configuration Debug for project practica_05 ****
 make -j16 all 
-arm-none-eabi-size  practica_04_2.elf 
+arm-none-eabi-size  practica_05.elf 
    text	   data	    bss	    dec	    hex	filename
-   7228	     48	   1592	   8868	   22a4	practica_04_2.elf
+   9644	    156	   1660	  11460	   2cc4	practica_05.elf
 Finished building: default.size.stdout
  
-13:02:11 **** Incremental Build of configuration Debug for project practica_04_2 ****
+11:09:20 **** Incremental Build of configuration Debug for project practica_05 ****
 make -j16 all 
-arm-none-eabi-size  practica_04_2.elf 
+arm-none-eabi-size  practica_05.elf 
    text	   data	    bss	    dec	    hex	filename
-   7228	     48	   1592	   8868	   22a4	practica_04_2.elf
+   9644	    156	   1660	  11460	   2cc4	practica_05.elf
+Finished building: default.size.stdout
+ 
+11:10:19 **** Incremental Build of configuration Debug for project practica_05 ****
+make -j16 all 
+arm-none-eabi-size  practica_05.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9644	    156	   1660	  11460	   2cc4	practica_05.elf
+Finished building: default.size.stdout
+ 
+11:10:54 **** Incremental Build of configuration Debug for project practica_05 ****
+make -j16 all 
+arm-none-eabi-size  practica_05.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9644	    156	   1660	  11460	   2cc4	practica_05.elf
 Finished building: default.size.stdout
  
