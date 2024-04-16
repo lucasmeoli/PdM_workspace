@@ -26,6 +26,6 @@ bool_t sensitivity_FSM_init();
  * @param  taps: The number of taps detected. 2 taps sets lower sensibility. 1 taps set higher sensibility.
  * @retval None
  */
-void sensitivity_FSM_update(uint8_t taps);
+void sensitivity_FSM_update();
 
 #endif /* API_INC_API_ADXL345_SENSITIVITY_H_ */

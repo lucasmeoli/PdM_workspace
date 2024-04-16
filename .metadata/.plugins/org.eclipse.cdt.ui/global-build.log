@@ -1,14 +1,14 @@
-16:31:55 **** Incremental Build of configuration Debug for project TP_Final ****
+20:53:30 **** Incremental Build of configuration Debug for project TP_Final ****
 make -j16 all 
 arm-none-eabi-size  TP_Final.elf 
    text	   data	    bss	    dec	    hex	filename
-  20360	    308	   2188	  22856	   5948	TP_Final.elf
+  20408	    308	   2196	  22912	   5980	TP_Final.elf
 Finished building: default.size.stdout
  
-16:32:50 **** Incremental Build of configuration Debug for project TP_Final ****
+20:53:33 **** Incremental Build of configuration Debug for project TP_Final ****
 make -j16 all 
 arm-none-eabi-size  TP_Final.elf 
    text	   data	    bss	    dec	    hex	filename
-  20360	    308	   2188	  22856	   5948	TP_Final.elf
+  20408	    308	   2196	  22912	   5980	TP_Final.elf
 Finished building: default.size.stdout
  
