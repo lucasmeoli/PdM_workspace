@@ -13,7 +13,6 @@
 #include "API_uart.h"
 #include "API_adxl345.h"
 #include "API_max7219.h"
-
 #include "API_decode_coordinates.h"
 
 /* Private typedef -----------------------------------------------------------*/

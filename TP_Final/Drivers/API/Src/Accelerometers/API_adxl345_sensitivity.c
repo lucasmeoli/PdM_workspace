@@ -11,12 +11,13 @@
 #include <stdbool.h>
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_nucleo_144.h"
-#include "API_adxl345.h"
 #include "API_uart.h"
 #include "API_debounce.h"
 #include "API_delay.h"
+#include "API_adxl345.h"
 
 #include "API_adxl345_sensitivity.h"
+
 
 /* Private typedef -----------------------------------------------------------*/
 typedef enum{

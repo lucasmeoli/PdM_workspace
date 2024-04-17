@@ -19,14 +19,13 @@
 #include "main.h"
 #include <stdint.h>
 #include <stdbool.h>
-
 #include "API_delay.h"
 #include "API_debounce.h"
 #include "API_uart.h"
-#include "API_adxl345_sensitivity.h"
-#include "API_decode_coordinates.h"
 #include "API_adxl345.h"
 #include "API_max7219.h"
+#include "API_decode_coordinates.h"
+#include "API_adxl345_sensitivity.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/

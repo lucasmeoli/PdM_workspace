@@ -1,3 +1,0 @@
-../Drivers/API/Src/Adxl345/API_adxl345_sensitivity.c:54:8:sensitivity_FSM_init	4
-../Drivers/API/Src/Adxl345/API_adxl345_sensitivity.c:70:6:sensitivity_FSM_update	14
-../Drivers/API/Src/Adxl345/API_adxl345_sensitivity.c:139:15:count_button_taps	4
