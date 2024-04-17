@@ -57,6 +57,8 @@ static uint8_t msg_new_line[] = MSG_NEW_LINE;
 
 static uint16_t decoded_x_coordinate;
 static uint16_t decoded_y_coordinate;
+static int16_t last_x_coordinate = 0;
+static int16_t last_y_coordinate = 0;
 static uint8_t current_display;
 static coordinatesState_t current_state;
 static coordinates_t coordinates;
@@ -175,6 +177,7 @@ static void configure_max7219() {
 
 /**
  * @brief  Sends the current coordinates via UART in the format: "X:<x_coord_value> - Y:<y_coord_value>\n"
+ * 		   It only sends coordinates if they are different from the previously sent ones.
  *
  * @param  None
  * @retval None
@@ -182,15 +185,20 @@ static void configure_max7219() {
 static void send_coordinates_uart() {
 	uint8_t msg_coord[5];
 
-	uart_send_string(msg_coordinate_x);
-	sprintf((char*)msg_coord, "%d", coordinates.x_coord);
-	uart_send_string(msg_coord);
+	if ((coordinates.x_coord != last_x_coordinate) || (coordinates.y_coord != last_y_coordinate)) {
+		uart_send_string(msg_coordinate_x);
+		sprintf((char*)msg_coord, "%d", coordinates.x_coord);
+		uart_send_string(msg_coord);
 
-	uart_send_string(msg_coordinate_y);
-	sprintf((char*)msg_coord, "%d", coordinates.y_coord);
-	uart_send_string(msg_coord);
+		uart_send_string(msg_coordinate_y);
+		sprintf((char*)msg_coord, "%d", coordinates.y_coord);
+		uart_send_string(msg_coord);
 
-	uart_send_string(msg_new_line);
+		uart_send_string(msg_new_line);
+
+		last_x_coordinate = coordinates.x_coord;
+		last_y_coordinate = coordinates.y_coord;
+	}
 }
 
 /**

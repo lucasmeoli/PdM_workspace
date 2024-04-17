@@ -1,7 +1,7 @@
-../Drivers/API/Src/API_decode_coordinates.c:72:8:coordinates_FSM_init	10
-../Drivers/API/Src/API_decode_coordinates.c:100:6:coordinates_FSM_update	9
-../Drivers/API/Src/API_decode_coordinates.c:151:13:configure_adxl345	1
-../Drivers/API/Src/API_decode_coordinates.c:165:13:configure_max7219	2
-../Drivers/API/Src/API_decode_coordinates.c:182:13:send_coordinates_uart	1
-../Drivers/API/Src/API_decode_coordinates.c:202:15:decode_x_coordinate	4
-../Drivers/API/Src/API_decode_coordinates.c:216:15:decode_y_coordinate	6
+../Drivers/API/Src/API_decode_coordinates.c:74:8:coordinates_FSM_init	10
+../Drivers/API/Src/API_decode_coordinates.c:102:6:coordinates_FSM_update	9
+../Drivers/API/Src/API_decode_coordinates.c:153:13:configure_adxl345	1
+../Drivers/API/Src/API_decode_coordinates.c:167:13:configure_max7219	2
+../Drivers/API/Src/API_decode_coordinates.c:185:13:send_coordinates_uart	3
+../Drivers/API/Src/API_decode_coordinates.c:210:15:decode_x_coordinate	4
+../Drivers/API/Src/API_decode_coordinates.c:224:15:decode_y_coordinate	6

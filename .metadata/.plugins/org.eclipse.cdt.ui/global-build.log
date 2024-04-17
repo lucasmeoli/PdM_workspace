@@ -1,7 +1,14 @@
-21:46:31 **** Incremental Build of configuration Debug for project TP_Final ****
+17:11:15 **** Incremental Build of configuration Debug for project TP_Final ****
 make -j16 all 
+arm-none-eabi-gcc "../Drivers/API/Src/API_decode_coordinates.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/Drivers/CMSIS/Include" -I"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/Drivers/Core/Inc" -I"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/Drivers/API" -I"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/Drivers/API/Inc" -I"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/Drivers/API/Src" -I"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/Drivers/API/Inc/Utils" -I"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/Drivers/API/Src/Utils" -I"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/Drivers/API/Inc/Displays" -I"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/Drivers/API/Src/Displays" -I"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/Drivers/API/Inc/Accelerometers" -I"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/Drivers/API/Src/Accelerometers" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/API/Src/API_decode_coordinates.d" -MT"Drivers/API/Src/API_decode_coordinates.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/API/Src/API_decode_coordinates.o"
+arm-none-eabi-gcc -o "TP_Final.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/lpmeoli/Especializacion/PdM_workspace/TP_Final/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TP_Final.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TP_Final.elf
+ 
 arm-none-eabi-size  TP_Final.elf 
+arm-none-eabi-objdump -h -S TP_Final.elf  > "TP_Final.list"
    text	   data	    bss	    dec	    hex	filename
-  20408	    308	   2196	  22912	   5980	TP_Final.elf
+  20468	    308	   2204	  22980	   59c4	TP_Final.elf
 Finished building: default.size.stdout
+ 
+Finished building: TP_Final.list
  
